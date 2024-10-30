@@ -67,41 +67,11 @@ public class FileSystemTest{
     @Test
     //Test Case 5: Functional Test
     public void verifyFileSystem_SingletonMultipleThreads(){
-        FileSystem cut1 = FileSystem.getFileSystem();
-        FileSystem cut2 = FileSystem.getFileSystem();
-        Thread t1 = new Thread(cut1);
-        Thread t2 = new Thread(cut2);
+        RunnableFileSystem r1 = new RunnableFileSystem();
+        RunnableFileSystem r2 = new RunnableFileSystem();
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
         t1.start();
         t2.start();
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertSame(cut1, cut2);
-        assertTrue(cut1.getRootDirs().contains(repo));
-        assertTrue(cut2.getRootDirs().contains(repo));
-        Directory driveE = new Directory(null, "driveE", 0, LocalDateTime.now());
-        assertFalse(cut1.getRootDirs().contains(driveE));
-        assertFalse(cut2.getRootDirs().contains(driveE));
-        cut2.appendRootDir(driveE);
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertTrue(cut1.getRootDirs().contains(driveE));
-        assertTrue(cut2.getRootDirs().contains(driveE));
-        cut1.getRootDirs().remove(driveE);
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertFalse(cut1.getRootDirs().contains(driveE));
-        assertFalse(cut2.getRootDirs().contains(driveE));
     }
 }

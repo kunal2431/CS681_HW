@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class FileSystem implements Runnable{
+public class FileSystem{
 
     protected LinkedList<Directory> directories_root = new LinkedList<Directory>();
 
@@ -26,8 +26,6 @@ public class FileSystem implements Runnable{
             lock.unlock();
         }
     }
-
-    public void run(){}
 
     public LinkedList<Directory> getRootDirs(){return this.directories_root;}
 
