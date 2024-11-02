@@ -4,7 +4,7 @@ package umbcs681.Volprimes;
 //import java.util.concurrent.locks.ReentrantLock;
 
 public class RunnableCancellablePrimeGenerator extends RunnablePrimeGenerator {
-	volatile boolean done = false;
+	private volatile boolean done = false;
 	//private ReentrantLock lock = new ReentrantLock();
 	
 	public RunnableCancellablePrimeGenerator(long from, long to) {

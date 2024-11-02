@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class RunnableCancellablePrimeFactorizer extends RunnablePrimeFactorizer {
-	volatile boolean done = false;
+	private volatile boolean done = false;
 	private ReentrantLock lock = new ReentrantLock();
 	
 	public RunnableCancellablePrimeFactorizer(long dividend, long from, long to) {
