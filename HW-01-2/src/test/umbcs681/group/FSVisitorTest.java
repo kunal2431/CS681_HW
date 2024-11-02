@@ -89,12 +89,12 @@ public class FSVisitorTest{
     public void verify_StreamGroup(){
         FileCrawlingVisitor visitor = new FileCrawlingVisitor();
         repo.accept(visitor);
-        Map<String, List<File>> grpFiles = visitor.files().collect(groupingBy( (File file)-> { if(file.getName().endsWith(".java")) { return ".java";} else{return ".md";}}));
-        LinkedList<Double> avg = new LinkedList<>();
+        /*LinkedList<Double> avg = new LinkedList<>();
         LinkedList<Long> ct = new LinkedList<>();
         LinkedList<Integer> min = new LinkedList<>();
         LinkedList<Integer> max = new LinkedList<>();
-        LinkedList<Long> sum = new LinkedList<>();
+        LinkedList<Long> sum = new LinkedList<>();*/
+        /*Map<String, List<File>> grpFiles = visitor.files().collect(groupingBy( (File file)-> { if(file.getName().endsWith(".java")) { return ".java";} else{return ".md";}}));
         grpFiles.forEach((group, files)->{
             IntSummaryStatistics stats = files.stream().collect(summarizingInt((File file)-> file.getSize()));
             avg.add(stats.getAverage());
@@ -102,17 +102,18 @@ public class FSVisitorTest{
             min.add(stats.getMin());
             max.add(stats.getMax());
             sum.add(stats.getSum());
-        });
-        assertEquals(10.00,avg.get(0)); // .md files
-        assertEquals(15.00,avg.get(1)); // .java files
-        assertEquals(1,ct.get(0)); // .md files
-        assertEquals(4,ct.get(1)); // .java files
-        assertEquals(10,min.get(0)); // .md files
-        assertEquals(12,min.get(1)); // .java files
-        assertEquals(10,max.get(0)); // .md files
-        assertEquals(20,max.get(1)); // .java files
-        assertEquals(10,sum.get(0)); // .md files
-        assertEquals(60,sum.get(1)); // .java files
+        });*/
+        Map<String, IntSummaryStatistics> grpFiles = visitor.files().collect(groupingBy( (File file)-> { if(file.getName().endsWith(".java")) { return ".java";} else{return ".md";}}, summarizingInt((File file)-> file.getSize())));
+        assertEquals(10.00,grpFiles.get(".md").getAverage());
+        assertEquals(15.00,grpFiles.get(".java").getAverage());
+        assertEquals(1,grpFiles.get(".md").getCount());
+        assertEquals(4,grpFiles.get(".java").getCount());
+        assertEquals(10,grpFiles.get(".md").getMin());
+        assertEquals(12,grpFiles.get(".java").getMin());
+        assertEquals(10,grpFiles.get(".md").getMax());
+        assertEquals(20,grpFiles.get(".java").getMax());
+        assertEquals(10,grpFiles.get(".md").getSum());
+        assertEquals(60,grpFiles.get(".java").getSum());
     }
 
     @Test
