@@ -1,6 +1,7 @@
 package umbcs681.streamcolorfilter;
 
 import org.junit.jupiter.api.Test;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +10,7 @@ public class ColorFilterTest{
     @Test
     //Test Case 1: Functional Test
     public void verify_GrayScaleAdjuster(){
-        ColorAdjuster GrayScaleAdjuster = (Color color)->{int r, g, b;
+        Function<Color, Color> GrayScaleAdjuster = (Color color)->{int r, g, b;
             r = color.getRedScale();
             g = color.getGreenScale();
             b = color.getBlueScale();
@@ -51,7 +52,7 @@ public class ColorFilterTest{
     @Test
     //Test Case 4: Verify methods of Color class
     public void verify_Color(){
-        ColorAdjuster GrayScaleAdjuster = (Color color)->{int r, g, b;
+        Function<Color, Color> GrayScaleAdjuster = (Color color)->{int r, g, b;
             r = color.getRedScale();
             g = color.getGreenScale();
             b = color.getBlueScale();
