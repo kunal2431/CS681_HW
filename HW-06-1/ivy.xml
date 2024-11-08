@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-	<info organisation="umb.edu" module="cs680"/>
+	<info organisation="umb.edu" module="cs681"/>
 	<dependencies>
 		<!-- Visit https://search.maven.org/ to search a JAR library file that you
 		     want to use. Copy a snippet <dependency .... /> there and paste it
