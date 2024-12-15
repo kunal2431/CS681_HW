@@ -15,7 +15,7 @@ public class BankReadTest{
         dep.start();
         wit.start();
         try {
-            dep.join();
+            dep.join(); // I used .join() here because I need to validate/assert final balance after both threads finish its execution else not required
             wit.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -36,11 +36,11 @@ public class BankReadTest{
         w.setDone();
         wit.interrupt();
         try {
-            dep.join();
-            wit.join();
+            wit.join(); // I used .join() here because I need main thread to wait for "wit" threads to complete 2-step thread termination to assert later else not required
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        assertFalse(wit.isAlive());
     }
 
     @Test
@@ -56,11 +56,11 @@ public class BankReadTest{
         d.setDone();
         dep.interrupt();
         try {
-            dep.join();
-            wit.join();
+            dep.join(); // I used .join() here because I need main thread to wait for "dep" thread to complete 2-step thread termination to assert later else not required
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        assertFalse(dep.isAlive());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class BankReadTest{
         dep1.start();
         wit1.start();
         try {
-            dep1.join();
+            dep1.join(); // I used .join() here because I need to validate/assert final balance after both threads finish its execution else not required
             wit1.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -93,11 +93,11 @@ public class BankReadTest{
         w.setDone();
         wit.interrupt();
         try {
-            dep.join();
-            wit.join();
+            wit.join(); // I used .join() here because I need main thread to wait for "wit" thread to complete 2-step thread termination to assert later else not required
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        assertFalse(wit.isAlive());
     }
 
     @Test
@@ -113,11 +113,11 @@ public class BankReadTest{
         d.setDone();
         dep.interrupt();
         try {
-            dep.join();
-            wit.join();
+            dep.join(); // I used .join() here because I need main thread to wait for "dep" thread to complete 2-step thread termination to assert later else not required
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        assertFalse(dep.isAlive());
     }
 
     @Test
@@ -152,6 +152,30 @@ public class BankReadTest{
             e.printStackTrace();
         }
         assertEquals(0, bankAccount.getBalance());
+    }
+
+    @Test
+    //Test Case 8: Functional Test of ThreadSafeOptimisticBankAccount
+    public void verify_OptimisticBankAccount5(){
+        ThreadSafeOptimisticBankAccount bankAccount = new ThreadSafeOptimisticBankAccount();
+        DepositRunnable d = new DepositRunnable(bankAccount);
+        WithdrawRunnable w = new WithdrawRunnable(bankAccount);
+        Thread dep = new Thread( d );
+        Thread wit = new Thread( w);
+        dep.start();
+        wit.start();
+        d.setDone();
+        dep.interrupt();
+        w.setDone();
+        wit.interrupt();
+        try {
+            dep.join(); // I used .join() here because I need main thread to wait for "dep" and "wit" thread to complete 2-step thread termination to assert later else not required
+            wit.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertFalse(dep.isAlive());
+        assertFalse(wit.isAlive());
     }
 
 
