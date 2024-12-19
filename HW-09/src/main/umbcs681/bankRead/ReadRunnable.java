@@ -16,7 +16,7 @@ public class ReadRunnable implements Runnable{
 	}
 
 	public void run(){
-		while(true){
+		for(int i = 0; i < 1; i++){
 			if (done.get()) {
 				System.out.println("Stopped ReadRunnable");
 				break;
@@ -33,4 +33,23 @@ public class ReadRunnable implements Runnable{
 		}
 
 	}
+
+/*	public void run(){
+		while(true){
+			if (done.get()) {
+				System.out.println("Stopped ReadRunnable");
+				break;
+			}
+
+			account.getBalance();
+
+			try{
+				Thread.sleep(2);
+			}
+			catch (InterruptedException ex){
+				continue;
+			}
+		}
+
+	}*/
 }
