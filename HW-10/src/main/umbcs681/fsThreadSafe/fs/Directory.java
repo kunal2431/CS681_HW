@@ -14,7 +14,7 @@ public class Directory  extends FSElement{
     public LinkedList<FSElement> getChildren(){
         rwLock.readLock().lock();
         try{
-            return this.children;
+            return new LinkedList<FSElement>(this.children);
         }
         finally {
             rwLock.readLock().unlock();
