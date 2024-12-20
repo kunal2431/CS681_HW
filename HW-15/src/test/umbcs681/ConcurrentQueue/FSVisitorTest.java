@@ -168,26 +168,31 @@ public class FSVisitorTest{
         t1.start();
         t2.start();
         t3.start();
-        try{
+/*        try{
             Thread.sleep(1); // Sleep(try-catch) is not required here, but used here to validate intermediate results
         }
         catch (InterruptedException e){
             e.printStackTrace();
-        }
+        }*/
         r1.setDone();
         t1.interrupt();
         r2.setDone();
         t2.interrupt();
         r3.setDone();
         t3.interrupt();
+        try{
+            t1.join(); // I used .join() here for t1, t2, t3 threads to complete 2-step thread termination and validate later.
+            t2.join();
+            t3.join();
+        }
+        catch (InterruptedException ex){
+
+        }
         LinkedList<File> intermediate_result = new LinkedList<>(RunnableFileCrawl.getShared_list());
         if(!intermediate_result.isEmpty()){
             assertTrue(intermediate_result.getFirst() instanceof File);
         }
-/*        Alternate solution testcase:
-        LinkedList<File> intermediate_result1 = r1.getShared_list1();
-        intermediate_result1.addAll(r2.getShared_list1());
-        intermediate_result1.addAll(r3.getShared_list1());*/
+
     }
 
 }
