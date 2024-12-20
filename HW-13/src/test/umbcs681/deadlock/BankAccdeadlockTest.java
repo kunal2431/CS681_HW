@@ -34,21 +34,24 @@ public class BankAccdeadlockTest{
         wit3.start();
         dep4.start();
         wit4.start();
+        try{
+            Thread.sleep(1);
+        }catch (InterruptedException e){}
         d1.setDone();
-        dep1.interrupt();
         w1.setDone();
-        wit1.interrupt();
         d2.setDone();
-        dep2.interrupt();
         w2.setDone();
-        wit2.interrupt();
         d3.setDone();
-        dep3.interrupt();
         w3.setDone();
-        wit3.interrupt();
         d4.setDone();
-        dep4.interrupt();
         w4.setDone();
+        dep1.interrupt();
+        wit1.interrupt();
+        dep2.interrupt();
+        wit2.interrupt();
+        dep3.interrupt();
+        wit3.interrupt();
+        dep4.interrupt();
         wit4.interrupt();
         try {
             dep1.join(); // I used .join() here because I need to validate all threads after 2 step termination
