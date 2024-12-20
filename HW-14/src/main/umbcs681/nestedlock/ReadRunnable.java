@@ -16,7 +16,7 @@ public class ReadRunnable implements Runnable{
 	}
 
 	public void run(){
-		while(true){
+		for(int i = 0; i < 1; i++){
 			if (done.get()) {
 				System.out.println("Stopped ReadRunnable");
 				break;
@@ -28,7 +28,11 @@ public class ReadRunnable implements Runnable{
 				Thread.sleep(2);
 			}
 			catch (InterruptedException ex){
-				continue;
+
+			}
+			if (done.get()) {
+				System.out.println("Stopped ReadRunnable");
+				break;
 			}
 		}
 
