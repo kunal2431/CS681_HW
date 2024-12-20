@@ -130,7 +130,7 @@ public class FSVisitorTest{
     }
 
     @Test
-    //Test Case 8: Functional Test
+    //Test Case 6: Functional Test
     public void verifyRunnableFileCrawl_MultipleThreads2(){
         FileSystem cut = FileSystem.getFileSystem().get();
         Directory driveE = new Directory(null, "driveE", 0, currentTime);
@@ -165,18 +165,24 @@ public class FSVisitorTest{
         t1.start();
         t2.start();
         t3.start();
-        try{
-            Thread.sleep(1); // Sleep(try-catch) is not required here, but used here to validate intermediate results
+/*        try{
+            Thread.sleep(1);
         }
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
+        catch (InterruptedException ex){}*/
         r1.setDone();
         t1.interrupt();
         r2.setDone();
         t2.interrupt();
         r3.setDone();
         t3.interrupt();
+        try{
+            t1.join(); // I used .join() here for t1, t2, t3 threads to complete 2-step thread termination and validate later.
+            t2.join();
+            t3.join();
+        }
+        catch (InterruptedException ex){
+
+        }
         LinkedList<File> intermediate_result = RunnableFileCrawl.getShared_list();
         if(!intermediate_result.isEmpty()){
             assertTrue(intermediate_result.getFirst() instanceof File);
