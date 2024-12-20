@@ -83,6 +83,10 @@ public class Directory  extends FSElement{
     public void accept(FSVisitor v) {
         v.visit(this);
         for (FSElement e: children){
+            if(Thread.currentThread().isInterrupted()){
+                System.out.println("Stopped during traversing");
+                return;
+            }
             e.accept(v);
         }
     }
