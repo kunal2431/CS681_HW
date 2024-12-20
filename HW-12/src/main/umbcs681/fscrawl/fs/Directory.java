@@ -124,6 +124,15 @@ public class Directory  extends FSElement{
         try{
             v.visit(this);
             for (FSElement e: children){
+                /*try {
+                    Thread.sleep(15);
+                } catch (InterruptedException ex) {
+                    return;
+                }*/
+                if(Thread.currentThread().isInterrupted()){
+                    System.out.println("Stopped during traversing");
+                    return;
+                }
                 e.accept(v);
             }
         }
