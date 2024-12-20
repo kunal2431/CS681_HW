@@ -39,11 +39,14 @@ public class BankAccNestedlockTest{
         dep1.start();
         wit1.start();
         transfer1.start();
+        try{
+            Thread.sleep(1);
+        }catch (InterruptedException e){}
         d1.setDone();
-        dep1.interrupt();
         w1.setDone();
-        wit1.interrupt();
         trans1.setDone();
+        dep1.interrupt();
+        wit1.interrupt();
         transfer1.interrupt();
         try{
             dep1.join(); // I used .join here for all the thread to complete its 2 step termination and then validate in main thread.
