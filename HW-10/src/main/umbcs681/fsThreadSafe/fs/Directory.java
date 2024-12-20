@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Directory  extends FSElement{
 
-    protected LinkedList<FSElement> children = new LinkedList<FSElement>();
+    private LinkedList<FSElement> children = new LinkedList<FSElement>();
 
     public Directory(Directory parent, String name, int size, LocalDateTime creationTime){
         super(parent, name, 0, creationTime);
