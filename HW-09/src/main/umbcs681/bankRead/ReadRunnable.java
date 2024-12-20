@@ -28,7 +28,11 @@ public class ReadRunnable implements Runnable{
 				Thread.sleep(2);
 			}
 			catch (InterruptedException ex){
-				continue;
+				
+			}
+			if (done.get()) {
+				System.out.println("Stopped ReadRunnable");
+				break;
 			}
 		}
 
