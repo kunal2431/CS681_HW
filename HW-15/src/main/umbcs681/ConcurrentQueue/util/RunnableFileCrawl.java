@@ -34,11 +34,7 @@ public class RunnableFileCrawl implements Runnable{
                 Thread.sleep(2);
             }
             catch (InterruptedException ex){
-                break;
-            }
-            if(done.get()){
-                System.out.println("Stopped FileCrawlRunnable");
-                break;
+                continue;
             }
         }
     }
