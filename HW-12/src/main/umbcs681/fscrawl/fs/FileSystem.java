@@ -44,7 +44,7 @@ public class FileSystem{
     public void appendRootDir(Directory root){
         rwLock.writeLock().lock();
         try{
-            this.directories_root.add(root);;
+            this.directories_root.add(root);
         }
         finally {
             rwLock.writeLock().unlock();
