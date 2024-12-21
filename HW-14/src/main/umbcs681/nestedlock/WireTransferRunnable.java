@@ -34,7 +34,7 @@ public class WireTransferRunnable implements Runnable{
 				Thread.sleep(2);
 			}
 			catch (InterruptedException ex){
-				continue;
+				return;
 			}
 		}
 
