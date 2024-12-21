@@ -29,7 +29,11 @@ public class RunnableFileCrawl implements Runnable{
                 break;
             }
             root_dir.accept(visitor);
-            shared_list.addAll(visitor.getFiles());
+            for (File file : visitor.getFiles()) {
+                if (!shared_list.contains(file)) {
+                    shared_list.add(file);
+                }
+            }
             try{
                 Thread.sleep(2);
             }
