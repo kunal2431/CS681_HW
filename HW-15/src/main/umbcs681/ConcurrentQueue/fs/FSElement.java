@@ -1,6 +1,7 @@
 package umbcs681.ConcurrentQueue.fs;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public abstract class FSElement{
 
@@ -9,6 +10,9 @@ public abstract class FSElement{
     protected LocalDateTime creationTime;
 
     protected Directory parent;
+
+    protected ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+
 
     public FSElement(Directory parent, String name, int size, LocalDateTime creationTime){
         //creationTime = LocalDateTime.now();
@@ -19,25 +23,55 @@ public abstract class FSElement{
     }
 
     public Directory getParent(){
-        return this.parent;
+        rwLock.readLock().lock();
+        try{
+            return this.parent;
+        }
+        finally {
+            rwLock.readLock().unlock();
+        }
     }
 
     public abstract boolean isDirectory();
 
     public String getName(){
-        return this.name;
+        rwLock.readLock().lock();
+        try{
+            return this.name;
+        }
+        finally {
+            rwLock.readLock().unlock();
+        }
     }
 
     public int getSize(){
-        return this.size;
+        rwLock.readLock().lock();
+        try{
+            return this.size;
+        }
+        finally {
+            rwLock.readLock().unlock();
+        }
     }
 
     public LocalDateTime getcreationTime(){
-        return this.creationTime;
+        rwLock.readLock().lock();
+        try{
+            return this.creationTime;
+        }
+        finally {
+            rwLock.readLock().unlock();
+        }
     }
 
     public void setParent(Directory parent) {
-        this.parent=parent;
+        rwLock.writeLock().lock();
+        try{
+            this.parent=parent;
+        }
+        finally {
+            rwLock.writeLock().unlock();
+        }
     }
 
     public abstract boolean isLink();
