@@ -31,7 +31,7 @@ public class RunnableFileCrawl implements Runnable{
             root_dir.accept(visitor);
             for (File file : visitor.getFiles()) {
                 if (!shared_list.contains(file)) {
-                    shared_list.add(file);
+                    shared_list.offer(file);
                 }
             }
             try{
